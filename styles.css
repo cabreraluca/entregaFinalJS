@@ -1,0 +1,141 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#login{
+    border: none;
+}
+.mensajeBienvenida{
+    color: white;
+}
+#cartelInicio{
+    text-decoration: underline;
+    color: white;
+}
+.formLogin label{
+    color: white;
+}
+.contenedorPrincipal a{
+    color: white;
+}
+h1{
+    margin-bottom: 3rem;
+    grid-area: header;
+}
+body{
+    background-image: url(img/b55caef4209f96da514e7e70dcdcc7b77c0b9386.jpg);
+}
+h2{
+    color: white;
+    margin: 1rem;
+}
+.formJugador{
+    max-height: max-content;
+    margin-top: 1rem;
+}
+
+h1{
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+#respuestaBotonImprimir{
+    display: inline-block;
+    grid-area: respuesta;
+    grid-template-rows: max-content;
+}
+.jugador{
+    width: max-content;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.507);
+    margin-top: 1rem;
+}
+
+.jugador h3, .jugador p{
+    color: white;
+    text-align: center;
+}
+.cartaPartido{ 
+    display: flex;
+    margin: 0.7rem;
+    margin-bottom: 0;
+    justify-content: center;
+}
+#proximosPartidos{
+    display: none;
+    margin-top: -27rem;
+    margin-left: 140vh;
+}
+.partidos img{
+    display: flex;
+    justify-content: end;
+    max-width: 3rem;
+    max-height: 3rem;
+    
+}
+.partidos p{
+    align-items: center;
+    text-align: center;
+}
+.partidos{
+    text-align: center;
+    z-index: top;
+    width: 17rem;
+    margin: 0.5rem;
+    background-color: green;
+}
+.partidos p{
+    color: white;
+}
+.partidos div{
+    size-adjust: 6rem;
+}
+
+form {
+    border: 3px solid #f1f1f1;
+}
+#guardar{
+    max-width: max-content;
+}
+.prode{
+    text-align: center;
+    z-index: top;
+    width: 17rem;
+    margin: 0.5rem;
+    background-color: green;
+    justify-content: space-between;
+}
+.prode p{
+    align-items: center;
+    text-align: center;
+}
+.prode p{
+    color: white;
+}
+.prode div{
+    size-adjust: 6rem;
+}
+
+.prode img{
+    display: flex;
+    justify-content: end;
+    max-width: 3rem;
+    max-height: 3rem;
+}
+#prode{
+    width: 30rem;
+}
+#prode h2{
+    margin-left: 4rem;
+}
+#prode img{
+    margin-top: 1rem;
+}
+.cartaPartido{
+    color: white;
+}
+.cartaPartido p{
+    color: white;
+    margin: 0.1rem;
+}
