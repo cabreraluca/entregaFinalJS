@@ -26,7 +26,14 @@ function guardarProde(){
                 }
             }
             contador = 0;
-        }  
+        }
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Guardado con éxito',
+            showConfirmButton: false,
+            timer: 2500
+          })
     }
     localStorage.setItem('resultados', JSON.stringify(dictIdsRestultados));
     imprimirResultados();
