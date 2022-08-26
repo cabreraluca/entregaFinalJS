@@ -59,7 +59,6 @@ function editarProde(){
     mostrarInputs(results);
 }
 function mostrarInputs(results){
-    console.log(results);
     while (listado.firstChild) {
         listado.removeChild(listado.firstChild);
       }
@@ -97,4 +96,4 @@ fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?league=128&season=2022
         imprimirResultados();
     }  
     )
-	.catch(err => console.log(err));
+	.catch(err => err(err));
