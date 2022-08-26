@@ -139,3 +139,6 @@ form {
     color: white;
     margin: 0.1rem;
 }
+#editar{
+    display: none;
+}

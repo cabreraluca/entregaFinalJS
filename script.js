@@ -1,11 +1,13 @@
 let container = document.getElementById('proximosPartidos');
-let prode = document.getElementById('prode');
+let listado = document.querySelector('.listado');
 const botonGuardar = document.getElementById('guardar');
 let results;
+const botonEditar = document.getElementById('editar');
 const botonInicioSesion = document.getElementById('botonInicioSesion');
-botonGuardar.onclick = function(){
+botonEditar.onclick = editarProde;
+botonGuardar.onclick = guardarProde;
+function guardarProde(){
     let inputsResultados = document.getElementsByClassName("prueba");
-    console.log(inputsResultados);
     let dictIdsRestultados = [];
     let contador = 0;
     let partidoId = "";
@@ -30,11 +32,15 @@ botonGuardar.onclick = function(){
     imprimirResultados();
 };
 
-console.log(localStorage.getItem('resultados'));
 function imprimirResultados(){
     let resultadosCompletos = JSON.parse(localStorage.getItem('resultados'));
     let elementosHTML = document.getElementsByClassName('prode');
-    for(let i = 0; i < elementosHTML.length; i++){
+    if(!resultadosCompletos || resultadosCompletos.length === 0){
+        return
+    }
+    for(let i = 0; i < resultadosCompletos.length; i++){
+        botonGuardar.style.display = 'none';
+        botonEditar.style.display = 'inline-block';
         teamsActuales = results[i].teams;
         let resultadoHome = resultadosCompletos[i].resultadoLocal;
         let resultadoAway = resultadosCompletos[i].resultadoVisitante;
@@ -47,7 +53,32 @@ function imprimirResultados(){
         elementosHTML[i].innerHTML = `<p> ${dia}/${mes+1} - ${horario}:${minutos == "0" ? "00" : minutos }  // ${fechaTorneo} </p> <div class = "cartaPartido"> <p>${teamsActuales.home.name} <p>  ${resultadoHome}  </p>  vs  <p>  ${resultadoAway}  </p> ${teamsActuales.away.name} </p> <img src="${teamsActuales.home.logo}" alt=""> <img src="${teamsActuales.away.logo}" </div>`;
     }
 };
-
+function editarProde(){
+    botonGuardar.style.display = 'inline-block';
+    botonEditar.style.display = 'none';
+    mostrarInputs(results);
+}
+function mostrarInputs(results){
+    console.log(results);
+    while (listado.firstChild) {
+        listado.removeChild(listado.firstChild);
+      }
+    for (const partido of results) {
+        const { teams } = partido;
+        const { fixture } = partido;
+        const { league } = partido;
+        const date = new Date(fixture.date);
+        let dia = date.getDate();
+        let mes = date.getMonth();
+        let horario = date.getHours();
+        let minutos = date.getMinutes();
+        let fechaTorneo = league.round;
+        prodeDiv = document.createElement('div');
+        prodeDiv.className = 'prode';
+        prodeDiv.innerHTML =`<p> ${dia}/${mes+1} - ${horario}:${minutos == "0" ? "00" : minutos }  // ${fechaTorneo} </p> <div class = "cartaPartido"> <p>${teams.home.name}<input id="${fixture.id}_local" class="prueba" type="number" placeholder="" required> vs <input id="${fixture.id}_visitante" class="prueba" type="number" placeholder="" required> ${teams.away.name} </p> <img src="${teams.home.logo}" alt=""> <img src="${teams.away.logo}" </div>`;
+        listado.append(prodeDiv);
+    }
+}
 const options = {
 	method: 'GET',
 	headers: {
@@ -62,22 +93,8 @@ fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?league=128&season=2022
     })
 	.then(partidosResults => {
         results = partidosResults.response;
-        console.log(results)
-        for (const partido of results) {
-            const { teams } = partido;
-            const { fixture } = partido;
-            const { league } = partido;
-            const date = new Date(fixture.date);
-            let dia = date.getDate();
-            let mes = date.getMonth();
-            let horario = date.getHours();
-            let minutos = date.getMinutes();
-            let fechaTorneo = league.round;
-            const element = document.createElement('div');
-            element.className = 'prode';
-            element.innerHTML =`<p> ${dia}/${mes+1} - ${horario}:${minutos == "0" ? "00" : minutos }  // ${fechaTorneo} </p> <div class = "cartaPartido"> <p>${teams.home.name}<input id="${fixture.id}_local" class="prueba" type="number" placeholder="" required> vs <input id="${fixture.id}_visitante" class="prueba" type="number" placeholder="" required> ${teams.away.name} </p> <img src="${teams.home.logo}" alt=""> <img src="${teams.away.logo}" </div>`;
-            prode.append(element);
-        }
-    }   
+        mostrarInputs(results);
+        imprimirResultados();
+    }  
     )
-	.catch(err => console.error(err));
+	.catch(err => console.log(err));
